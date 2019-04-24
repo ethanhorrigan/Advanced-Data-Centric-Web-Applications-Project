@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sales.models.Book;
 import com.sales.models.Customer;
+import com.sales.models.Loan;
 import com.sales.services.BookService;
 import com.sales.services.CustomerService;
+import com.sales.services.LoanService;
 
 @Controller
 public class MainController {
@@ -23,6 +25,8 @@ public class MainController {
 	@Autowired
 	CustomerService customerService;
 	
+	@Autowired
+	LoanService loanService;
 
 	@RequestMapping(value = "/showBooks", method=RequestMethod.GET)
 	public String listBooks(Model model) {
@@ -48,9 +52,10 @@ public class MainController {
 	
 	@RequestMapping(value = "/showCustomers", method=RequestMethod.GET)
 	public String listCustomers(Model model) {
-		List<Customer> cust = customerService.findAll();
-		model.addAttribute("cust", cust);
-			return "showCustomers";
+		List<Customer> customers = customerService.findAll();
+		model.addAttribute("customers", customers);
+		return "showCustomers";
 	}
+	
 	
 }
