@@ -10,13 +10,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.sales.models.Book;
+import com.sales.models.Customer;
 import com.sales.services.BookService;
+import com.sales.services.CustomerService;
 
 @Controller
 public class MainController {
 
 	@Autowired
 	BookService bookService;
+	
+	@Autowired
+	CustomerService customerService;
 	
 
 	@RequestMapping(value = "/showBooks", method=RequestMethod.GET)
@@ -40,4 +45,12 @@ public class MainController {
 		bookService.save(book);
 		return "redirect:showBooks";
 	}
+	
+	@RequestMapping(value = "/showCustomers", method=RequestMethod.GET)
+	public String listCustomers(Model model) {
+		List<Customer> cust = customerService.findAll();
+		model.addAttribute("cust", cust);
+			return "showCustomers";
+	}
+	
 }
